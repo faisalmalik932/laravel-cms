@@ -2,10 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Category;
 use App\Http\Requests\Posts\CreatePostsRequest;
+use App\Http\Requests\Posts\UpdatePostRequest;
 use App\Post;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Storage;
 
 class PostsController extends Controller
 {
@@ -26,7 +27,7 @@ class PostsController extends Controller
      */
     public function create()
     {
-        return view('posts.create');
+        return view('posts.create')->with('categories', Category::all());
     }
 
     /**
@@ -49,6 +50,7 @@ class PostsController extends Controller
             'description' => $request->description,
             'content' => $request->content,
             'image' => $image,
+            'category_id' => $request->category_id,
             'published_at' => $request->published_at
 
         ]);
@@ -80,9 +82,9 @@ class PostsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Post $post)
     {
-        //
+        return view('posts.create')->with('post', $post)->with('categories', Category::all());
     }
 
     /**
@@ -92,9 +94,35 @@ class PostsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(UpdatePostRequest $request, Post $post)
     {
-        //
+        $data = $request->only(['title', 'description', 'published_at', 'content']);
+
+        // check if new image
+
+        if ($request->hasFile('image')) {
+            //upload it
+
+            $image = $request->image->store('posts');
+
+            // delete Old one
+
+            $post->deleteImage();
+
+            $data['image'] = $image;
+        }
+
+        // update attributes
+
+        $post->update($data);
+
+        // flash message
+
+        session()->flash('success', 'Post Updated Successfully');
+
+        // redirect user
+
+        return redirect(route('posts.index'));
     }
 
     /**
@@ -109,7 +137,7 @@ class PostsController extends Controller
 
         if ($post->trashed()) 
         {
-            Storage::delete($post->image);
+            $post->deleteImage();
             $post->forceDelete();
         }
         else {
@@ -124,9 +152,20 @@ class PostsController extends Controller
 
     public function trashed()
     {
-        $trashed = Post::withTrashed()->get();
+        $trashed = Post::onlyTrashed()->get();
 
         return view('posts.index')->withPosts($trashed);
+    }
+
+    public function restore($id)
+    {
+        $post = Post::withTrashed()->where('id', $id)->firstOrFail();
+
+        $post->restore();
+
+        session()->flash('success', 'Post Restored Successfully');
+
+        return redirect()->back();
     }
 
 }
