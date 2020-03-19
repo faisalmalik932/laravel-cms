@@ -64,7 +64,7 @@ class PostsController extends Controller
         ]);
 
         if ($request->tags) {
-            $post->tags()->attach($request);
+            $post->tags()->attach($request->tags);
         }
 
         // flash message
@@ -122,6 +122,10 @@ class PostsController extends Controller
             $post->deleteImage();
 
             $data['image'] = $image;
+        }
+
+        if ($request->tags) {
+            $post->tags()->sync($request->tags);
         }
 
         // update attributes
