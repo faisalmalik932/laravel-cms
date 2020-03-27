@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Blog\PostsController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -13,7 +14,13 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', 'WelcomeController@index');
+Route::get('/', 'WelcomeController@index')->name('welcome');
+
+Route::get('blog/posts/{post}', [PostsController::class, 'show'])->name('blog.show');
+
+Route::get('blog/categories/{category}', [PostsController::class, 'category'])->name('blog.category');
+
+Route::get('blog/tags/{tag}', [PostsController::class, 'tag'])->name('blog.tag');
 
 Auth::routes();
 

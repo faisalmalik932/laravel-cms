@@ -3,7 +3,9 @@
 use App\Category;
 use App\Post;
 use App\Tag;
+use App\User;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\Hash;
 
 class PostsTableSeeder extends Seeder
 {
@@ -14,6 +16,17 @@ class PostsTableSeeder extends Seeder
      */
     public function run()
     {
+
+        $author1 = User::create([
+            'name' => 'John Doe',
+            'email' => 'john@doe.com',
+            'password' => Hash::make(11221122)
+        ]);
+        $author2 = User::create([
+            'name' => 'Jane Doe',
+            'email' => 'jane@doe.com',
+            'password' => Hash::make(11221122)
+        ]);
         
         $category1 = Category::create([
             'name' => 'News'
@@ -27,7 +40,7 @@ class PostsTableSeeder extends Seeder
             'name' => 'Partnership'
         ]);
     
-        $post1 = Post::create([
+        $post1 = $author1->posts()->create([
             'title' => 'We relocated our office to a new designed garage',
             'description' => 'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industrys standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.',
             'content' => 'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industrys standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book/Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industrys standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.',
@@ -35,7 +48,7 @@ class PostsTableSeeder extends Seeder
             'image' => 'posts/1.jpg'
         ]);
 
-        $post2 = Post::create([
+        $post2 = $author2->posts()->create([
             'title' => 'Top 5 brilliant content marketing strategies',
             'description' => 'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industrys standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.',
             'content' => 'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industrys standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book/Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industrys standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.',
@@ -43,7 +56,7 @@ class PostsTableSeeder extends Seeder
             'image' => 'posts/2.jpg'
         ]);
 
-        $post3 = Post::create([
+        $post3 = $author2->posts()->create([
             'title' => 'Best practices for minimalist design with example',
             'description' => 'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industrys standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.',
             'content' => 'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industrys standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book/Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industrys standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.',
@@ -51,7 +64,7 @@ class PostsTableSeeder extends Seeder
             'image' => 'posts/3.jpg'
         ]);
 
-        $post4 = Post::create([
+        $post4 = $author1->posts()->create([
             'title' => 'Congratulate and thank to Maryam for joining our team',
             'description' => 'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industrys standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.',
             'content' => 'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industrys standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book/Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industrys standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.',
