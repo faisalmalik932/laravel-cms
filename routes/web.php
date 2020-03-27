@@ -26,7 +26,7 @@ Auth::routes();
 
 
 
-Route::middleware(['auth'])->group(function  () {
+Route::middleware(['auth', 'cadmin'])->group(function  () {
 
 Route::get('/home', 'HomeController@index')->name('home');
 

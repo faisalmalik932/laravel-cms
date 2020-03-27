@@ -82,6 +82,14 @@
     <script src="{{ asset('public/js/page.min.js') }}"></script>
     <script src="{{ asset('public/js/script.js') }}"></script>
     <script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-5c78fd2aaeb1fe96"></script>
+    <script>
+      $("document").ready(function(){
+        setTimeout(function(){
+           $("div.alert").remove();
+        }, 5000 ); // 5 secs
+    
+    });
+    </script>
 
   </body>
 </html>
