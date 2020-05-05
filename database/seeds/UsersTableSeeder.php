@@ -25,5 +25,13 @@ class UsersTableSeeder extends Seeder
                 'password' => Hash::make(11221122)
             ]);
         }
+
+        App\Profile::create([
+            'user_id'   =>  $user->id,
+            'avatar'    =>  'public/img/logo-dark.png',
+            'about' =>  'Lorem Saab Nay KAl LAkka jkjd lokka lokka Lorem Saab Nay KAl LAkka jkjd lokka lokka Lorem Saab Nay KAl LAkka jkjd lokka lokka',
+            'facebook'  =>  'facebook.com',
+            'youtube'   =>  'youtube.com'
+        ]);
     }
 }

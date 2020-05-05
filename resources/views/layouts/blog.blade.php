@@ -27,7 +27,6 @@
       <div class="container">
 
         <div class="navbar-left">
-          <button class="navbar-toggler" type="button">&#9776;</button>
           <a class="navbar-brand" href="{{ route('welcome')}}">
             <img class="logo-dark" src="{{ asset('public/img/logo-dark.png') }}" alt="logo">
             <img class="logo-light" src="{{ asset('public/img/logo-light.png') }}" alt="logo">
@@ -43,7 +42,23 @@
           </ul>
         </section>
 
-    <a class="btn btn-xs btn-round btn-success" href="{{ route('login') }}">Login</a>
+        @if (Auth::guest())
+          <a class="btn btn-xs btn-round btn-success" href="{{ route('login') }}">Login</a>
+        @endif
+        @if (Auth::user())
+          <a class="btn btn-xs btn-round btn-danger" href="{{ route('logout') }}"
+                                       onclick="event.preventDefault();
+                                                     document.getElementById('logout-form').submit();">
+                                        {{ __('Logout') }}
+                                    </a>
+
+                                    <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                                        @csrf
+                                    </form>
+        @endif
+        @if (Auth::check())
+          <a class="btn btn-xs btn-round btn-light" href="{{ route('home') }}">Dashboard</a>
+        @endif
 
       </div>
     </nav><!-- /.navbar -->
@@ -66,10 +81,10 @@
 
           <div class="col-6 col-lg-3 text-right order-lg-last">
             <div class="social">
-              <a class="social-facebook" href="https://www.facebook.com/thethemeio"><i class="fa fa-facebook"></i></a>
-              <a class="social-twitter" href="https://twitter.com/thethemeio"><i class="fa fa-twitter"></i></a>
-              <a class="social-instagram" href="https://www.instagram.com/thethemeio/"><i class="fa fa-instagram"></i></a>
-              <a class="social-dribbble" href="https://dribbble.com/thethemeio"><i class="fa fa-dribbble"></i></a>
+              <a class="social-facebook" href="https://www.facebook.com/faisallmalick"><i class="fa fa-facebook"></i></a>
+              <a class="social-twitter" href="https://twitter.com/faisallmalick"><i class="fa fa-twitter"></i></a>
+              <a class="social-instagram" href="https://www.instagram.com/faisallmalick/"><i class="fa fa-instagram"></i></a>
+              <a class="social-dribbble" href="https://dribbble.com/faisallmalick"><i class="fa fa-dribbble"></i></a>
             </div>
           </div>
 

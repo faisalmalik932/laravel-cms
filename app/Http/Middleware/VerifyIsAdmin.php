@@ -4,6 +4,8 @@ namespace App\Http\Middleware;
 
 use Closure;
 
+use Session;
+
 class VerifyIsAdmin
 {
     /**
@@ -16,7 +18,7 @@ class VerifyIsAdmin
     public function handle($request, Closure $next)
     {
         if (!auth()->user()->isAdmin()) {
-            return redirect(route('home'));
+            Session::flash('info', 'You do not have permissions to perform this action.');
         }
         return $next($request); 
     }

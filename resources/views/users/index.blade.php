@@ -38,6 +38,11 @@
                                     @csrf
                                     <button type="submit" class="btn btn-success btn-sm">Make Admin</button>
                                 </form>
+                                @else
+                                    <form action="{{ route('users.not-admin', $user->id) }}" method="POST">
+                                        @csrf
+                                        <button type="submit" class="btn btn-danger btn-sm">Remove Permissions</button>
+                                    </form>
                             @endif               
                         </td>
                     </tr>

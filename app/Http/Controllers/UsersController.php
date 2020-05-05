@@ -8,6 +8,12 @@ use Illuminate\Http\Request;
 
 class UsersController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('VerifyIsAdmin');
+    }
+    
+
     public function index()
     {
         return view('users.index')->with('users', User::all());
@@ -21,6 +27,16 @@ class UsersController extends Controller
         return redirect(route('users.index'));
 
     }
+
+    public function not_admin(User $user)
+    {
+        $user->role = 'writer';
+        $user->save();
+        session()->flash('error', 'Successfully changed user permissions.');
+        return redirect(route('users.index'));
+
+    }
+
     public function edit()
     {
         return view('users.edit')->with('user', auth()->user());
