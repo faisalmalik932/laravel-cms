@@ -37,7 +37,10 @@
           <span class="navbar-divider d-mobile-none"></span>
 
           <ul class="nav nav-navbar">
-            
+            <li class="active"><a href="#" style="color: white">Home</a></li>
+            <li><a href="#" style="color: white">Page 1</a></li>
+            <li><a href="#" style="color: white">Page 2</a></li>
+            <li><a href="#" style="color: white">Page 3</a></li>
 
           </ul>
         </section>

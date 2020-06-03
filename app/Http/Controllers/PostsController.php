@@ -51,7 +51,7 @@ class PostsController extends Controller
         $image = $request->image->store('posts');
         
         // create the post
-
+        //dd($request);
         $post = Post::create([
 
             'title' => $request->title,
@@ -59,10 +59,11 @@ class PostsController extends Controller
             'content' => $request->content,
             'image' => $image,
             'category_id' => $request->category_id,
-            'user_id' => $request->user_id,
+            'user_id' => auth()->user()->id,
             'published_at' => $request->published_at
-
+            
         ]);
+        
 
         if ($request->tags) {
             $post->tags()->attach($request->tags);
